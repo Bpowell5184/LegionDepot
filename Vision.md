@@ -1,5 +1,5 @@
 # Vision:
-LegionStats provides users with a comphrehensive inventory manager, intuitive list builder, and accurate battle simulator aiming to streamline and enhance collection management, army creation, and unit analysis. 
+LegionDepot provides users with a comphrehensive inventory manager, intuitive list builder, and accurate battle simulator aiming to streamline and enhance collection management, army creation, and unit analysis. 
 
 # Goals:
 

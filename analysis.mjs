@@ -20,14 +20,13 @@ let text =
     }
 }`
 
-const waitTime = 0 // 1000 = 1 second
 let unitOneWins = 0;
 let unitTwoWins = 0;
 const unitOneName = "Stormtrooper";
 const unitTwoName = "B1 Battle Droid";
 let currentRun = 0;
-const numberOfRuns = 100000;
-const logNum = 0;
+const numberOfRuns = 100;
+const logNum = 20; // Number of logs to generate (can be 0)
 const basefileNum = createFileNum();
 let fileLocation = basefileNum;
 
@@ -40,6 +39,7 @@ function runProgram(){
         const unitTwo = getUnit(units, unitTwoName);
         if (currentRun % (numberOfRuns/logNum) == 0) {
             fileLocation++;
+            writeToFile(`Battle ${fileLocation}: ${unitOneName} vs. ${unitTwoName}`, fileLocation);
             doRunLog(fileLocation, unitOne, unitTwo, units);
         } 
         else doRun(fileLocation, unitOne, unitTwo, units);
@@ -49,8 +49,6 @@ function runProgram(){
     console.log(`${unitOneName} Winrate: ${unitOneWins/totalMatches}`);
     console.log(`${unitTwoName} Winrate: ${unitTwoWins/totalMatches}`);
 }
-
-
 
 function doRun(fileLocation, unitOne, unitTwo, units){
     let gameState = 0;
@@ -136,13 +134,7 @@ function getUnit(units, name){
 }
 
 function writeToFile(message, location){
-        fs.appendFile(`./logs/battle_${location}`, message+'\n', err => {
-            if (err) {
-                console.error(err);
-            } else {
-
-            }
-        });
+        fs.writeFileSync(`./logs/battle_${location}`, message+'\n', { flag: 'a+' });
 }
 
 function createFileNum(){
@@ -152,7 +144,7 @@ function createFileNum(){
     .filter(match => match != null)
     .map(match => Number(match[1]));
 
-    const max = numbers.length ? Math.max(...numbers) : -1;
+    const max = numbers.length ? Math.max(...numbers) : 0;
     return max;
 }
 

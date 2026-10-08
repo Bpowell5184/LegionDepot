@@ -2,11 +2,15 @@
     "Stormtrooper": {
         "Models": 4, 
         "AttackDice":"w", 
-        "DefenseDice":"r"
+        "DefenseDice":"r",
+        "SurgeAttack": "h",
+        "SurgeDefense": "n"
     }, 
-    "B1 Battle Droids": {
+    "B1 Battle Droid": {
         "Models": 6, 
         "AttackDice":"w", 
-        "DefenseDice":"w"
+        "DefenseDice":"w",
+        "SurgeAttack": "n",
+        "SurgeDefense": "n"
     }
 }
