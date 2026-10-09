@@ -2,23 +2,25 @@ import { doRolls } from "./doRolls.mjs";
 import fs from 'node:fs';
 import * as dotenv from 'dotenv';
 import troopData from "./troops.json" with { type: "json" };
+import path from "node:path";
 
 dotenv.config();
 
-let unitOneWins = 0;
-let unitTwoWins = 0;
 const unitOneName = process.env.UNIT_ONE_NAME;
 const unitTwoName = process.env.UNIT_TWO_NAME;
 const numRuns = process.env.NUM_RUNS;
 const numLogs = process.env.NUM_LOGS; // Number of logs to generate (can be 0)
-let currentRun = 0;
-const basefileNum = createFileNum();
-let fileLocation = basefileNum;
+let unitOneWins = 0;
+let unitTwoWins = 0;
 
+if (process.env.CLEAN_LOGS === "true") cleanLogs();
 runProgram();
 
 function runProgram(){
+    let currentRun = 0;
     let flip = true;
+    const basefileNum = createFileNum();
+    let fileLocation = basefileNum;
     while (currentRun < numRuns){
         const units = troopData;
         const unitOne = getUnit(units, unitOneName);
@@ -35,7 +37,6 @@ function runProgram(){
         }   
         currentRun++;
         flip = !flip;
-        console.log(flip);
     }
     const totalMatches = unitOneWins + unitTwoWins;
     console.log(`${unitOneName} Winrate: ${unitOneWins/totalMatches}`);
@@ -117,6 +118,13 @@ function getUnit(units, name){
 
 function writeToFile(message, location){
         fs.writeFileSync(`./logs/battle_${location}`, message+'\n', { flag: 'a+' });
+}
+
+function cleanLogs(){
+    const files = fs.readdirSync('./logs');
+    for (const file of files){
+        fs.unlinkSync(path.join('./logs', file))
+    }
 }
 
 function createFileNum(){
