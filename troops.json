@@ -1,5 +1,6 @@
 {
     "Stormtrooper": {
+        "Name": "Stormtrooper",
         "Models": 4, 
         "AttackDice":"w", 
         "DefenseDice":"r",
@@ -7,6 +8,7 @@
         "SurgeDefense": "n"
     }, 
     "B1 Battle Droid": {
+        "Name": "B1 Battle Droid",
         "Models": 6, 
         "AttackDice":"w", 
         "DefenseDice":"w",
