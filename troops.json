@@ -1,18 +1,66 @@
 {
-    "Stormtrooper": {
-        "Name": "Stormtrooper",
-        "Models": 4, 
-        "AttackDice":"w", 
-        "DefenseDice":"r",
-        "SurgeAttack": "h",
-        "SurgeDefense": "n"
-    }, 
-    "B1 Battle Droid": {
-        "Name": "B1 Battle Droid",
-        "Models": 6, 
-        "AttackDice":"w", 
-        "DefenseDice":"w",
-        "SurgeAttack": "n",
-        "SurgeDefense": "n"
+    "Stormtroopers": {
+        "Name": "Stormtroopers", "Models": 4, "AttackDice": "w",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "n"
+    },
+    "Stormtrooper Riot Squad": {
+        "Name": "Stormtrooper Riot Squad", "Models": 4, "AttackDice": "w",
+        "DefenseDice": "r", "SurgeAttack": "n", "SurgeDefense": "n"
+    },
+    "Stormtroopers (Heavy Response Unit)": {
+        "Name": "Stormtroopers (Heavy Response Unit)", "Models": 3, "AttackDice": "w",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "n"
+    },
+    "Snowtroopers": {
+        "Name": "Snowtroopers", "Models": 4, "AttackDice": "w",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "n"
+    },
+    "Shoretroopers": {
+        "Name": "Shoretroopers", "Models": 4, "AttackDice": "b",
+        "DefenseDice": "r", "SurgeAttack": "n", "SurgeDefense": "n"
+    },
+    "Scout Troopers": {
+        "Name": "Scout Troopers", "Models": 4, "AttackDice": "bb",
+        "DefenseDice": "w", "SurgeAttack": "n", "SurgeDefense": "b"
+    },
+    "Imperial Death Troopers": {
+        "Name": "Imperial Death Troopers", "Models": 4, "AttackDice": "b",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "b"
+    },
+    "Imperial Special Forces": {
+        "Name": "Imperial Special Forces", "Models": 4, "AttackDice": "b",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "n"
+    },
+    "Imperial Special Forces (Inferno Squad)": {
+        "Name": "Imperial Special Forces (Inferno Squad)", "Models": 1, "AttackDice": "bb",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "n"
+    },
+    "B1 Battle Droids": {
+        "Name": "B1 Battle Droids", "Models": 6, "AttackDice": "w",
+        "DefenseDice": "w", "SurgeAttack": "n", "SurgeDefense": "n"
+    },
+    "B2 Super Battle Droids": {
+        "Name": "B2 Super Battle Droids", "Models": 3, "AttackDice": "bb",
+        "DefenseDice": "r", "SurgeAttack": "n", "SurgeDefense": "n"
+    },
+    "Geonosian Warriors (Soldiers of the Hive)": {
+        "Name": "Geonosian Warriors (Soldiers of the Hive)", "Models": 4, "AttackDice": "bw",
+        "DefenseDice": "w", "SurgeAttack": "n", "SurgeDefense": "b"
+    },
+    "Geonosian Warriors (Geonosian Engineers)": {
+        "Name": "Geonosian Warriors (Geonosian Engineers)", "Models": 4, "AttackDice": "b",
+        "DefenseDice": "w", "SurgeAttack": "h", "SurgeDefense": "b"
+    },
+    "BX-Series Droid Commandos": {
+        "Name": "BX-Series Droid Commandos", "Models": 4, "AttackDice": "ww",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "n"
+    },
+    "IG-100 MagnaGuard": {
+        "Name": "IG-100 MagnaGuard", "Models": 3, "AttackDice": "bw",
+        "DefenseDice": "r", "SurgeAttack": "h", "SurgeDefense": "n"
+    },
+    "IG-100 MagnaGuard (Prototype Assassin Droids)": {
+        "Name": "IG-100 MagnaGuard (Prototype Assassin Droids)", "Models": 4, "AttackDice": "bw",
+        "DefenseDice": "r", "SurgeAttack": "n", "SurgeDefense": "n"
     }
 }
