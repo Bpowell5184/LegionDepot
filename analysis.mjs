@@ -8,8 +8,8 @@ dotenv.config();
 
 const unitOneName = process.env.UNIT_ONE_NAME;
 const unitTwoName = process.env.UNIT_TWO_NAME;
-const numRuns = process.env.NUM_RUNS;
-const numLogs = process.env.NUM_LOGS; // Number of logs to generate (can be 0)
+const numRuns = parseInt(process.env.NUM_RUNS);
+const numLogs = parseInt(process.env.NUM_LOGS); // Number of logs to generate (can be 0)
 let unitOneWins = 0;
 let unitTwoWins = 0;
 
@@ -19,13 +19,15 @@ runProgram();
 function runProgram(){
     let currentRun = 0;
     let flip = true;
+    let logArray = new Set();
     const basefileNum = createFileNum();
     let fileLocation = basefileNum;
+    if (numLogs != 0) logArray = generateRandomLogs(numLogs, numRuns);
     while (currentRun < numRuns){
         const units = troopData;
         const unitOne = getUnit(units, unitOneName);
         const unitTwo = getUnit(units, unitTwoName);
-        if (currentRun % (numRuns/numLogs) == 0 && numLogs != 0) {
+        if (numLogs != 0 && logArray.has(currentRun)) {
             fileLocation++;
             writeToFile(`Battle ${fileLocation}: ${unitOneName} vs. ${unitTwoName}`, fileLocation);
             if (flip) doRun(unitTwo, unitOne, true, fileLocation);
@@ -59,9 +61,9 @@ function doRun(unitOne, unitTwo, isLogged, fileLocation){
             }
             gameState = 1;
         } else if (gameState == 1){
-            const unitTwoPaint = unitAttack(unitTwo, false, fileLocation);
+            const unitTwoPaint = unitAttack(unitTwo, isLogged, fileLocation);
             if (unitTwoPaint != 0){
-                const unitOnePaint = unitDefense(unitOne, unitTwoPaint, false, fileLocation);
+                const unitOnePaint = unitDefense(unitOne, unitTwoPaint, isLogged, fileLocation);
                 let wounds = calculateWounds(unitTwoPaint, unitOnePaint)
                 unitOne.Models = unitOne.Models - wounds;
                 if (isLogged){
@@ -75,10 +77,10 @@ function doRun(unitOne, unitTwo, isLogged, fileLocation){
 
     if (isLogged){
         if (unitOne.Models <= 0){
-            writeToFile(`Battle Droids Win!`, fileLocation);
+            writeToFile(`${unitTwo.name}s Win!`, fileLocation);
             unitTwoWins++;
         } else if (unitTwo.Models <= 0){
-            writeToFile(`Stormtroopers Win!`, fileLocation);
+            writeToFile(`${unitOne.name}s Win!`, fileLocation);
             unitOneWins++;
         }
     }
@@ -114,6 +116,14 @@ function unitDefense(inUnit, enemyPaint, logged, fileLocation){
 
 function getUnit(units, name){
     return { name, ...units[name] };
+}
+
+function generateRandomLogs(numLogs, numRuns){
+    let randSet = new Set();
+    while (randSet.size < numLogs){
+        randSet.add(Math.floor(Math.random() * numRuns));
+    }
+    return randSet;
 }
 
 function writeToFile(message, location){
