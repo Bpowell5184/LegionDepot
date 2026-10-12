@@ -6,8 +6,6 @@ import path from "node:path";
 
 dotenv.config();
 
-const unitOneName = process.env.UNIT_ONE_NAME;
-const unitTwoName = process.env.UNIT_TWO_NAME;
 const numRuns = parseInt(process.env.NUM_RUNS);
 const numLogs = parseInt(process.env.NUM_LOGS); // Number of logs to generate (can be 0)
 let unitOneWins = 0;
@@ -22,27 +20,41 @@ function runProgram(){
     let logArray = new Set();
     const basefileNum = createFileNum();
     let fileLocation = basefileNum;
+    let winner = "";
+    let unitOne;
+    let unitTwo;
     if (numLogs != 0) logArray = generateRandomLogs(numLogs, numRuns);
     while (currentRun < numRuns){
         const units = troopData;
-        const unitOne = getUnit(units, unitOneName);
-        const unitTwo = getUnit(units, unitTwoName);
+        unitOne = getUnit(units, process.env.UNIT_ONE_NAME);
+        unitTwo = getUnit(units, process.env.UNIT_TWO_NAME);
         if (numLogs != 0 && logArray.has(currentRun)) {
             fileLocation++;
-            writeToFile(`Battle ${fileLocation}: ${unitOneName} vs. ${unitTwoName}`, fileLocation);
-            if (flip) doRun(unitTwo, unitOne, true, fileLocation);
-            else doRun(unitOne, unitTwo, true, fileLocation);
+            writeToFile(`Battle ${fileLocation}: ${unitOne.name} vs. ${unitTwo.name}`, fileLocation);
+            if (flip) {
+                winner = doRun(unitTwo, unitOne, true, fileLocation);
+            }
+            else {
+                winner = doRun(unitOne, unitTwo, true, fileLocation);
+            }
         } 
         else {
-            if (flip) doRun(unitTwo, unitOne, false, fileLocation);
-            else doRun(unitOne, unitTwo, false, fileLocation);
+            if (flip) {
+                winner = doRun(unitTwo, unitOne, false, fileLocation);
+            }
+            else { 
+                winner = doRun(unitOne, unitTwo, false, fileLocation);
+            }
         }   
         currentRun++;
         flip = !flip;
+        if (winner === unitOne.name) {
+            unitOneWins++;
+        } else unitTwoWins++;
     }
     const totalMatches = unitOneWins + unitTwoWins;
-    console.log(`${unitOneName} Winrate: ${unitOneWins/totalMatches}`);
-    console.log(`${unitTwoName} Winrate: ${unitTwoWins/totalMatches}`);
+    console.log(`${unitOne.name} Winrate: ${unitOneWins/totalMatches}`);
+    console.log(`${unitTwo.name} Winrate: ${unitTwoWins/totalMatches}`);
 }
 
 function doRun(unitOne, unitTwo, isLogged, fileLocation){
@@ -77,16 +89,16 @@ function doRun(unitOne, unitTwo, isLogged, fileLocation){
 
     if (isLogged){
         if (unitOne.Models <= 0){
-            writeToFile(`${unitTwo.name}s Win!`, fileLocation);
-            unitTwoWins++;
+            writeToFile(`${unitTwo.name} Win!`, fileLocation);
+            return unitTwo.name;
         } else if (unitTwo.Models <= 0){
-            writeToFile(`${unitOne.name}s Win!`, fileLocation);
-            unitOneWins++;
+            writeToFile(`${unitOne.name} Win!`, fileLocation);
+            return unitOne.name;
         }
     }
     else {
-        if (unitOne.Models <= 0) unitTwoWins++; 
-        else if (unitTwo.Models <= 0) unitOneWins++;
+        if (unitOne.Models <= 0) return unitTwo.name; 
+        else if (unitTwo.Models <= 0) return unitOne.name;
     }
 }
 
